@@ -20,7 +20,8 @@
     "no-param-reassign": "off",
     "no-else-return": "off",
     "no-lonely-if": "off",
-    "no-shadow": "off"
+    "no-shadow": "off",
+    "import/no-extraneous-dependencies": ["error", {"devDependencies": true }]
   },
   "parserOptions": {
     "ecmaVersion": 2018,
