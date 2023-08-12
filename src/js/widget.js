@@ -36,6 +36,32 @@ export default class PaymentWidget {
         this.element.addEventListener('submit', (this.onSubmit))
     }
 
+    createMessage(messageText) {
+        const dialogDiv = document.querySelector('.dialog')
+        if(dialogDiv) {
+            dialogDiv.remove();
+        }
+        
+        const dialog = document.createElement('div');
+        dialog.classList.add('dialog');
+
+        const message = document.createElement('span');
+        message.classList.add('message');
+        message.textContent = messageText;
+
+        const closeButton = document.createElement('button');
+        closeButton.classList.add('button-close');
+        closeButton.textContent = 'OK';
+        closeButton.addEventListener('click', () => {
+            dialog.remove();
+        });
+
+        dialog.appendChild(message);
+        dialog.appendChild(closeButton);
+
+        return dialog;
+    }
+
     onInput(e) {
         e.preventDefault();
 
@@ -73,14 +99,18 @@ export default class PaymentWidget {
 
         try {
             if(isLuhnValid(cardNumber) && bank !== 'unknown') {
-                alert('Номер валидный! Ваша платежная система: ' + bank);
+                const message = this.createMessage(`Номер валидный! Ваша платежная система: ${bank}`);
+                this.container.appendChild(message);
             } else if(isLuhnValid(cardNumber) && bank === 'unknown') {
-                throw new Error('Неопределенна платежная система банка');
+                const message = this.createMessage('Неопределенная платежная система банка');
+                this.container.appendChild(message);
             } else {
-                throw new Error('Номер не валидный');
+                const message = this.createMessage('Номер не валидный');
+                this.container.appendChild(message);
             }
         } catch (e) {
-            alert(e.message);
+            const message = this.createMessage(e);
+            this.container.appendChild(message);
         }
 
         cardImages.forEach(cardImage => cardImage.classList.remove('active'));

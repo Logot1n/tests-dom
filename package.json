@@ -4,12 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
-    "coverage": "jest --coverage",
+    "test": "jest --testPathPattern=./src/ --runInBand",
+    "coverage": "jest --testPathPattern=./src/ --coverage",
     "e2e": "jest --testPathPattern=./e2e/ --runInBand",
     "lint": "eslint .",
-    "start": "webpack serve --env development",
-    "build": "webpack --env production"
+    "start": "webpack serve --config webpack.development.config.js",
+    "build": "webpack --config webpack.production.config.js"
   },
   "author": "",
   "license": "ISC",

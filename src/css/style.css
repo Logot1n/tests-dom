@@ -1,6 +1,6 @@
 body {
     font-family: 'Open Sans', sans-serif;
-    font-size: 32px;
+    font-size: 30px;
     color: #0f0d0e;
     line-height: 1.6;
 
@@ -49,4 +49,22 @@ h1,h2,h3,h4,h5,h6 {
 .card-submit {
     font-size: 32px;
     margin-left: 10px;
+}
+
+.dialog {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid black;
+    margin-top: 30px;
+    padding: 20px;
+}
+
+.message {
+    flex-grow: 1;
+}
+
+.button-close {
+    cursor: pointer;
+    font-size: 32px;
 }
