@@ -102,7 +102,7 @@ export default class PaymentWidget {
                 const message = this.createMessage(`Номер валидный! Ваша платежная система: ${bank}`);
                 this.container.appendChild(message);
             } else if(isLuhnValid(cardNumber) && bank === 'unknown') {
-                const message = this.createMessage('Неопределенная платежная система банка');
+                const message = this.createMessage('Неопределенна платежная система банка');
                 this.container.appendChild(message);
             } else {
                 const message = this.createMessage('Номер не валидный');
