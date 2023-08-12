@@ -9,7 +9,7 @@ describe('Credit Card Validator form', () => {
   let server = null;
   const baseUrl = 'http://localhost:9000/';
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     server = fork(`${__dirname}/e2e.server.js`);
     await new Promise((resolve, reject) => {
       server.on('error', reject);
@@ -28,7 +28,7 @@ describe('Credit Card Validator form', () => {
     page = await browser.newPage();
   });
 
-  afterEach(async () => {
+  afterAll(async () => {
     await browser.close();
     server.kill();
   });
