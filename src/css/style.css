@@ -1,0 +1,52 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 32px;
+    color: #0f0d0e;
+    line-height: 1.6;
+
+    margin: 0;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+.container {
+    margin: 0 auto;
+    margin-top: 200px;
+    max-width: 800px;
+}
+
+.cards-group {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
+.card {
+    width: 64px;
+    height: 41px;
+    filter: grayscale(100%);
+}
+
+.card.active {
+    border: 1px solid yellow;
+    filter: grayscale(0%);
+}
+
+.card-number {
+    font-size: 32px;
+}
+
+.card-submit {
+    font-size: 32px;
+    margin-left: 10px;
+}
