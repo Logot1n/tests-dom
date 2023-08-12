@@ -1,5 +1,5 @@
-import puppetteer from 'puppeteer';
 import { fork } from 'child_process';
+import puppetteer from 'puppeteer';
 
 jest.setTimeout(30000); // default puppeteer timeout
 
@@ -22,7 +22,7 @@ describe('Credit Card Validator form', () => {
 
     browser = await puppetteer.launch({
       headless: false,
-      slowMo: 100,
+      slowMo: 1,
       devtools: true,
     });
     page = await browser.newPage();
@@ -33,39 +33,22 @@ describe('Credit Card Validator form', () => {
     server.kill();
   });
 
-  test('Форма и карточки должны появиться при открытии сайта', async () => {
-    await page.goto(baseUrl);
-
-    await page.waitForSelector('.cards-group');
-    await page.waitForSelector('.payment-form-widget');
-  });
-
   test('Проверка валидного номера карты', async () => {
     await page.goto(baseUrl);
-    await page.waitForSelector('.payment-form-widget');
-    await page.waitForSelector('.cards-group');
 
     const form = await page.$('.payment-form-widget');
     const input = await form.$('.card-number');
     const submit = await form.$('.card-submit');
-    const cardGroup = await page.$('.cards-group');
 
     await input.type('4929440455898021');
+    // const payment = await page.$eval('.active', (card) => card.getAttribute('data-id'));
     await submit.click();
-    const bank = await cardGroup.$('.card .active');
-    
-    await page.waitForSelector('.dialog');
-    const dialog = await page.$('.dialog');
-    const message = await dialog.$('.message');
-    await page.evaluate((message, bank) => {
-      message.textContent = `Номер валидный! Ваша платежная система: ${bank}`;
-    }, message, bank);
+
+    expect(await page.$eval('.message', (elem) => elem.innerText)).toBe('Номер валиден! Ваша платежная система: visa');
   });
 
-  test('Проверка невалидного номера карты', async () => {
+  test('Проверка номера карты с неопределенной платежной системой', async () => {
     await page.goto(baseUrl);
-    await page.waitForSelector('.payment-form-widget');
-    await page.waitForSelector('.cards-group');
 
     const form = await page.$('.payment-form-widget');
     const input = await form.$('.card-number');
@@ -73,18 +56,12 @@ describe('Credit Card Validator form', () => {
 
     await input.type('5020797568741371');
     await submit.click();
-    await page.waitForSelector('.dialog');
-    const dialog = await page.$('.dialog');
-    const message = await dialog.$('.message');
-    await page.evaluate(message => {
-      message.textContent = `Неопределенна платежная система банка`;
-    }, message);
-  })
+
+    expect(await page.$eval('.message', (elem) => elem.innerText)).toBe('Неопределенна платежная система банка');
+  });
 
   test('Проверка невалидного номера карты', async () => {
     await page.goto(baseUrl);
-    await page.waitForSelector('.payment-form-widget');
-    await page.waitForSelector('.cards-group');
 
     const form = await page.$('.payment-form-widget');
     const input = await form.$('.card-number');
@@ -92,11 +69,19 @@ describe('Credit Card Validator form', () => {
 
     await input.type('212121');
     await submit.click();
-    await page.waitForSelector('.dialog');
-    const dialog = await page.$('.dialog');
-    const message = await dialog.$('.message');
-    await page.evaluate(message => {
-      message.textContent = `Номер не валидный`;
-    }, message);
-  })
+
+    expect(await page.$eval('.message', (elem) => elem.innerText)).toBe('Номер не валиден');
+  });
+
+  test('Проверка подсветки карточек', async () => {
+    await page.goto(baseUrl);
+
+    const form = await page.$('.payment-form-widget');
+    const input = await form.$('.card-number');
+
+    await input.type('4929440455898021');
+    const payment = await page.$eval('img.active', (card) => card.getAttribute('data-id'));
+
+    expect(payment).toBe('visa');
+  });
 });

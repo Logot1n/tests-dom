@@ -12,7 +12,7 @@ module.exports = merge(common, {
   devServer: {
     historyApiFallback: true,
     open: true,
-    compress: true
+    compress: true,
   },
 
   plugins: [
