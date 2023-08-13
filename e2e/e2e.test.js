@@ -28,10 +28,10 @@ describe('Credit Card Validator form', () => {
     page = await browser.newPage();
   });
 
-  // afterAll(async () => {
-  //   await browser.close();
-  //   server.kill();
-  // });
+  afterAll(async () => {
+    await browser.close();
+    server.kill();
+  });
 
   test('Проверка валидного номера карты', async () => {
     await page.goto(baseUrl);
