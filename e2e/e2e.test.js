@@ -21,9 +21,9 @@ describe('Credit Card Validator form', () => {
     });
 
     browser = await puppeteer.launch({
-      // headless: false,
-      // slowMo: 1,
-      // devtools: true,
+      headless: new,
+      slowMo: 1,
+      devtools: true,
     });
     page = await browser.newPage();
   });
