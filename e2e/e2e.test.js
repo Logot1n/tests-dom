@@ -1,5 +1,5 @@
 import { fork } from 'child_process';
-import puppetteer from 'puppeteer';
+import puppeteer from 'puppeteer';
 
 jest.setTimeout(30000); // default puppeteer timeout
 
@@ -20,7 +20,7 @@ describe('Credit Card Validator form', () => {
       });
     });
 
-    browser = await puppetteer.launch({
+    browser = await puppeteer.launch({
       // headless: false,
       // slowMo: 1,
       // devtools: true,
@@ -28,10 +28,10 @@ describe('Credit Card Validator form', () => {
     page = await browser.newPage();
   });
 
-  afterAll(async () => {
-    await browser.close();
-    server.kill();
-  });
+  // afterAll(async () => {
+  //   await browser.close();
+  //   server.kill();
+  // });
 
   test('Проверка валидного номера карты', async () => {
     await page.goto(baseUrl);
