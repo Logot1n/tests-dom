@@ -41,7 +41,6 @@ describe('Credit Card Validator form', () => {
     const submit = await form.$('.card-submit');
 
     await input.type('4929440455898021');
-    // const payment = await page.$eval('.active', (card) => card.getAttribute('data-id'));
     await submit.click();
 
     expect(await page.$eval('.message', (elem) => elem.innerText)).toBe('Номер валиден! Ваша платежная система: visa');
