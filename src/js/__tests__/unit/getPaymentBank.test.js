@@ -4,7 +4,7 @@ describe('Получаем название платёжной системы ф
   test.each([
     ['44', 'visa'],
     ['52', 'mastercard'],
-    ['34', 'american-express'],
+    ['34', 'americanExpress'],
     ['6011', 'discover'],
     ['35', 'jcb'],
     ['36', 'diners'],

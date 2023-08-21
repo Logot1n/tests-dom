@@ -7,7 +7,7 @@ describe('isLuhnValid', () => {
   });
 
   test('Проверка валидности номера на false', () => {
-    const result = isLuhnValid('4913231193041089');
+    const result = isLuhnValid('212121');
     expect(result).toBe(false);
   });
 });

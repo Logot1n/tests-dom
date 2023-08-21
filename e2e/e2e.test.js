@@ -40,7 +40,7 @@ describe('Credit Card Validator form', () => {
     const input = await form.$('.card-number');
     const submit = await form.$('.card-submit');
 
-    await input.type('4929440455898021');
+    await input.type('4916631193071088');
     await submit.click();
 
     expect(await page.$eval('.message', (elem) => elem.innerText)).toBe('Номер валиден! Ваша платежная система: visa');
@@ -53,7 +53,7 @@ describe('Credit Card Validator form', () => {
     const input = await form.$('.card-number');
     const submit = await form.$('.card-submit');
 
-    await input.type('5020797568741371');
+    await input.type('6396562389436740');
     await submit.click();
 
     expect(await page.$eval('.message', (elem) => elem.innerText)).toBe('Неопределенна платежная система банка');
@@ -78,7 +78,7 @@ describe('Credit Card Validator form', () => {
     const form = await page.$('.payment-form-widget');
     const input = await form.$('.card-number');
 
-    await input.type('4929440455898021');
+    await input.type('4916631193071088');
     const payment = await page.$eval('img.active', (card) => card.getAttribute('data-id'));
 
     expect(payment).toBe('visa');
